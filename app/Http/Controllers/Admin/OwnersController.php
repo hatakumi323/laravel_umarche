@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Owner;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class OwnersController extends Controller
 {
@@ -19,7 +22,18 @@ class OwnersController extends Controller
 
     public function index()
     {
-        dd('オーナー一覧です');
+        $data_naw = Carbon::now();
+        $e_all = Owner::all();
+        $q_get = DB::table('owners')->select('name', 'created_at')->get();
+        // $q_first = DB::table('owners')->select('name')->first();
+
+        // $c_test = collect([
+        //     'name' => 'テスト'
+        // ]);
+
+        // echo $data_naw->year();
+            return view('admin.owners.index', compact('e_all', 'q_get'));
+        // dd($e_all, $q_all, $q_first, $c_test);
     }
 
     /**
